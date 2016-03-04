@@ -1,0 +1,21 @@
+@import 'common';
+
+body, html {
+  font: 100% $font-stack;
+  @include full-height;
+  margin: 0px;
+}
+
+#game-of-life {
+    @include flex;
+    @include full-height;
+}
+
+.table {
+    border-collapse: collapse;
+    tbody td {
+        border: 1px solid $grey400;
+        width: 5px;
+        height: 5px;
+    }
+}
