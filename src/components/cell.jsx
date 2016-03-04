@@ -8,7 +8,15 @@ class Cell extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            alive: false
+            alive: this.props.cell.alive
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.cell.alive !== this.state.alive) {
+            this.setState({
+                alive: nextProps.cell.alive
+            })
         }
     }
 
@@ -40,6 +48,8 @@ const style = {
     }
 }
 
-Cell.propTypes = {};
+Cell.propTypes = {
+    cell: React.PropTypes.object.isRequired
+};
 
 export default Cell;

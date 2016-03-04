@@ -12,8 +12,8 @@ class GameOfLife extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            numRows: 10,
-            numCols: 10,
+            numRows: 25,
+            numCols: 25,
             rows: [],
             mutate: false
         }
@@ -34,12 +34,11 @@ class GameOfLife extends React.Component {
     };
 
     buildRows() {
-        console.log('building');
         const rows = [];
         for (let i=0; i < this.state.numRows; i++) {
             let cols = [];
             for (let j=0; j < this.state.numCols; j++) {
-                cols.push({row: i, col: j});
+                cols.push({row: i, col: j, alive: false});
             }
             rows.push(cols);
         }
@@ -53,20 +52,15 @@ class GameOfLife extends React.Component {
     }
 
     getNeighbors(rows, cell) {
-
-        const upRow = rows[cell.row-1];
-        const downRow = rows[cell.row+1];
-        const sameRow = rows[cell.row];
-
         return [
-            rows[cell.row-1][cell.col],
-            rows[cell.row-1][cell.col+1],
-            rows[cell.row][cell.col+1],
-            rows[cell.row+1][cell.col+1],
-            rows[cell.row+1][cell.col],
-            rows[cell.row+1][cell.col-1],
-            rows[cell.row][cell.col-1],
-            rows[cell.row-1][cell.col-1]
+            rows[cell.row-1] && rows[cell.row-1][cell.col],     // North
+            rows[cell.row-1] && rows[cell.row-1][cell.col+1],   // Northeast
+            rows[cell.row][cell.col+1],                         // East
+            rows[cell.row+1] && rows[cell.row+1][cell.col+1],   // Southeast
+            rows[cell.row+1] && rows[cell.row+1][cell.col],     // South
+            rows[cell.row+1] && rows[cell.row+1][cell.col-1],   // Southwest
+            rows[cell.row][cell.col-1],                         // West
+            rows[cell.row-1] && rows[cell.row-1][cell.col-1]    // Northwest
         ]
     }
 
