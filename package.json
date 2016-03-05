@@ -3,7 +3,14 @@
   "version": "1.0.0",
   "description": "Conway's Game of Life",
   "scripts": {
-    "test": "test"
+    "start": "npm run dev",
+    "dev": "echo 'launching dev environment' && npm run build && npm run start-dev-server",
+    "build": "echo 'building:' && webpack --progress --colors",
+    "watch": "echo 'watching:' && webpack --watch --progress --colors",
+    "test": "echo 'testing:' && mocha --compilers js:babel-core/register --recursive --colors",
+    "test:watch": "npm test -- --watch ",
+    "test:debug": "echo 'debugging tests:' && mocha --compilers js:babel-core/register --recursive --colors --debug-brk",
+    "start-dev-server": "echo 'starting dev server' && node server.js"
   },
   "repository": {
     "type": "git",
@@ -15,16 +22,6 @@
     "url": "https://github.com/mikechabot/game-of-life/issues"
   },
   "homepage": "https://github.com/mikechabot/game-of-life#readme",
-  "scripts": {
-    "start": "npm run dev",
-    "dev": "echo 'launching dev environment' && npm run build && npm run start-dev-server",
-    "build": "echo 'building:' && webpack --progress --colors",
-    "watch": "echo 'watching:' && webpack --watch --progress --colors",
-    "test": "echo 'testing:' && mocha --compilers js:babel-core/register --recursive --colors",
-    "test:watch": "npm test -- --watch ",
-    "test:debug": "echo 'debugging tests:' && mocha --compilers js:babel-core/register --recursive --colors --debug-brk",
-    "start-dev-server": "echo 'starting dev server' && node server.js"
-  },
   "devDependencies": {
     "autoprefixer": "^6.3.1",
     "babel-core": "^6.0.20",
@@ -58,6 +55,7 @@
     "react-dom": "^0.14.0",
     "react-redux": "^4.0.6",
     "react-tap-event-plugin": "^0.2.1",
-    "redux": "^3.0.5"
+    "redux": "^3.0.5",
+    "redux-thunk": "^1.0.3"
   }
 }

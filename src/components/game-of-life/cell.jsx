@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 
 /**      Author: Mike Chabot
  *  Description: Represents a GoL cell
@@ -13,10 +14,25 @@ class Cell extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.cell.alive !== this.state.alive) {
-            this.setState({
-                alive: nextProps.cell.alive
-            })
+        if (nextProps.mutate) {
+            let living = _.filter(
+                            nextProps.neighbors,
+                            neighbor => neighbor && neighbor.alive
+                         ).length;
+
+            if (this.state.alive) {
+                if (living <= 1 || living >= 4) {
+                    this.setState({
+                        alive: false
+                    })
+                }
+            } else {
+                if (living === 3) {
+                    this.setState({
+                        alive: true
+                    })
+                }
+            }
         }
     }
 
@@ -41,7 +57,7 @@ const baseStyle = {
 
 const style = {
     alive: {
-        backgroundColor: 'red'
+        backgroundColor: '#448AFF'
     },
     dead: {
         ...baseStyle
