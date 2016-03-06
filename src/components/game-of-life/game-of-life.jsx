@@ -1,5 +1,6 @@
 import React from 'react';
 import Cell from './cell';
+import Colors from 'material-ui/lib/styles/colors';
 
 /**          Author: Mike Chabot
  *      Description:
@@ -18,8 +19,8 @@ class GameOfLife extends React.Component {
             numRows: this.props.controls.numRows,
             numCols: this.props.controls.numCols,
             tps: this.props.controls.tps,
-            ticks: 0
         }
+        this.ticks = 0;
     }
 
     componentDidMount() {
@@ -37,33 +38,20 @@ class GameOfLife extends React.Component {
 
     componentWillReceiveProps(nextProps, nextState) {
 
-        // Rebuild the grid
-        if (nextProps.controls.buildGrid === true) {
-            this.setState({
-                numRows: nextProps.controls.numRows,
-                numCols: nextProps.controls.numCols,
-                tps: nextProps.controls.tps,
-                grid: this.buildGrid(
-                    nextProps.controls.numRows,
-                    nextProps.controls.numCols
-                )
-            });
-        }
-
         // Update ticks per second
         if (nextProps.controls.tps !== this.state.tps) {
             this.setState({tps: nextProps.controls.tps})
         }
 
-        // Clear the grid
         if (nextProps.controls.clearGrid) {
-
+            this.ticks = 0;
         }
 
         // Update mutate flag
         if (nextProps.controls.mutate) {
             timer = setInterval(() => {
                 this.forceUpdate();
+                this.ticks++;
             }, (1000 / this.state.tps))
         } else {
             clearInterval(timer);
@@ -110,6 +98,7 @@ class GameOfLife extends React.Component {
         const grid = this.getReconciledGrid();
         return (
             <div style={style.container}>
+                <span style={style.ticks}>Ticks: {this.ticks}</span>
                 <table className="table">
                     <tbody>
                     {
@@ -139,7 +128,13 @@ class GameOfLife extends React.Component {
 const style = {
     container: {
         display: 'flex',
+        flexDirection: 'column',
         marginTop: 20
+    },
+    ticks: {
+        fontSize: '90%',
+        fontWeight: 600,
+        color: Colors.grey600
     }
 }
 

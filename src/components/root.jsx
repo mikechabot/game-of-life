@@ -20,10 +20,10 @@ class Root extends React.Component {
     render() {
         return (
             <div style={style.container}>
-                <div style={style.title}>Game of Life</div>
-                <div>
-                    <ControlsContainer />
-                </div>
+                <span style={style.title}>
+                    Game of Life
+                </span>
+                <ControlsContainer />
                 <Scrollable>
                     <GameOfLifeContainer />
                 </Scrollable>
@@ -39,6 +39,7 @@ Root.childContextTypes = {
 
 const style = {
     title: {
+        display: 'inline-block',
         marginTop: 10,
         color: Colors.grey700,
         fontSize: '200%',
@@ -49,6 +50,12 @@ const style = {
         flexDirection: 'column',
         width: '100%',
         alignItems: 'center',
+    }
+}
+
+const mapStateToProps = (state) => {
+    return {
+        ticks: state.controls.ticks
     }
 }
 

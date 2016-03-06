@@ -20,32 +20,34 @@ const Controls = ({
     setTicksPerSecond,
     clearGrid
 }) => (
-    <div style={style.container}>
-        <div style={style.slider}>
-            <ControlledSlider
-                min={1}
-                max={20}
-                title="Speed"
-                subtitle={`${controls.tps} ticks/sec`}
-                onChange={setTicksPerSecond}
-                value={controls.tps}
-            />
-        </div>
-        <div style={style.buttons}>
-            <RaisedButton
-                labelStyle={style.button}
-                label={controls.mutate ? 'Stop' : 'Start'}
-                onClick={
-                    controls.mutate
-                        ? () => stopMutation()
-                        : () => startMutation()
-                }
-            />
-            <RaisedButton
-                labelStyle={style.button}
-                label='Clear Grid'
-                onClick={() => clearGrid()}
-            />
+    <div>
+        <div style={style.container}>
+            <div style={style.slider}>
+                <ControlledSlider
+                    min={1}
+                    max={20}
+                    title="Speed"
+                    subtitle={`${controls.tps} ticks/sec`}
+                    onChange={setTicksPerSecond}
+                    value={controls.tps}
+                />
+            </div>
+            <div style={style.buttons}>
+                <RaisedButton
+                    labelStyle={style.button}
+                    label={controls.mutate ? 'Stop' : 'Start'}
+                    onClick={
+                        controls.mutate
+                            ? () => stopMutation()
+                            : () => startMutation()
+                    }
+                />
+                <RaisedButton
+                    labelStyle={style.button}
+                    label='Clear Grid'
+                    onClick={() => clearGrid()}
+                />
+            </div>
         </div>
     </div>
 );
