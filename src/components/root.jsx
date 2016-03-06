@@ -53,10 +53,4 @@ const style = {
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        ticks: state.controls.ticks
-    }
-}
-
 export default connect()(Root);

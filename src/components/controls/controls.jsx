@@ -15,6 +15,7 @@ import ControlledSlider from '../common/controlled-slider';
 
 const Controls = ({
     controls,
+    timer,
     startMutation,
     stopMutation,
     setTicksPerSecond,
@@ -35,11 +36,11 @@ const Controls = ({
             <div style={style.buttons}>
                 <RaisedButton
                     labelStyle={style.button}
-                    label={controls.mutate ? 'Stop' : 'Start'}
+                    label={timer.isRunning ? 'Stop' : 'Start'}
                     onClick={
-                        controls.mutate
+                        timer.isRunning
                             ? () => stopMutation()
-                            : () => startMutation()
+                            : () => startMutation(controls.tps)
                     }
                 />
                 <RaisedButton

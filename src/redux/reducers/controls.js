@@ -1,8 +1,6 @@
 import { DEFAULT_STATE } from '../../common/app-const';
 import {
     SET_TICKS_PER_SECOND,
-    START_MUTATION,
-    STOP_MUTATION,
     CLEAR_GRID
 } from '../actions';
 
@@ -14,18 +12,6 @@ const Controls = (state = defaultState, action) => {
             return {
                 ...state,
                 tps: Math.floor(action.value)
-            }
-        }
-        case START_MUTATION: {
-            return {
-                ...state,
-                mutate: true
-            }
-        }
-        case STOP_MUTATION: {
-            return {
-                ...state,
-                mutate: false
             }
         }
         case CLEAR_GRID: {

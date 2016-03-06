@@ -20,7 +20,6 @@ class GameOfLife extends React.Component {
             numCols: this.props.controls.numCols,
             tps: this.props.controls.tps,
         }
-        this.ticks = 0;
     }
 
     componentDidMount() {
@@ -41,10 +40,6 @@ class GameOfLife extends React.Component {
         // Update ticks per second
         if (nextProps.controls.tps !== this.state.tps) {
             this.setState({tps: nextProps.controls.tps})
-        }
-
-        if (nextProps.controls.clearGrid) {
-            this.ticks = 0;
         }
 
         // Update mutate flag
@@ -98,28 +93,11 @@ class GameOfLife extends React.Component {
         const grid = this.getReconciledGrid();
         return (
             <div style={style.container}>
-                <span style={style.ticks}>Ticks: {this.ticks}</span>
-                <table className="table">
-                    <tbody>
-                    {
-                        grid.map((rowColumns, index) => (
-                            <tr key={index}>
-                                {
-                                    rowColumns.map((cell, index) => (
-                                        <Cell
-                                            ref={`${cell.row}-${cell.col}`}
-                                            mutate={this.props.controls.mutate}
-                                            neighbors={this.getNeighbors(cell, this.state.grid)}
-                                            key={index}
-                                            clear={this.props.controls.clearGrid}
-                                            cell={cell} />
-                                    ))
-                                }
-                            </tr>
-                        ))
-                    }
-                    </tbody>
-                </table>
+                Ticks: {
+                    this.props.timer
+                        ? this.props.timer.ticks
+                        : 0
+                }
             </div>
         );
     }

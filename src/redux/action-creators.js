@@ -1,3 +1,11 @@
+import {
+    START_TIMER,
+    STOP_TIMER,
+    TICK
+} from './actions';
+
+
+
 /**
  * To reduce boilerplate code, we can utilize
  * this helper function that generates action
@@ -32,10 +40,67 @@ export const toggleActionCreator = (
     invert
 ) => {
     return (dispatch, getState) => {
-        // Dispatch request action to notify UI
         dispatch(makeActionCreator(type, key)(!invert));
         setTimeout(() => {
             dispatch(makeActionCreator(type, key)(!!invert));
         }, 50)
+    }
+}
+
+const makeStartTimerActionCreator = () => {
+    return makeActionCreator(START_TIMER, 'timer');
+}
+
+const makeStopTimerActionCreator = () => {
+    return makeActionCreator(STOP_TIMER);
+}
+
+const makeTickActionCreator = () => {
+    return makeActionCreator(TICK);
+}
+
+const shouldStartTimer = (state) => {
+    if (!state.timer) return true;
+    return !state.timer.isRunning;
+}
+
+/**
+ * Thunk action creator to start a timer and schedule
+ * a tick every N milliseconds
+ *
+ * @return {function}                   Return thunk action creator
+ */
+export const startTimerActionCreator = (
+    ticksPerSecond
+) => {
+    return (dispatch, getState) => {
+        if (shouldStartTimer(getState())) {
+
+            // Schedule timer
+            const timer = setInterval(() => {
+                dispatch(makeTickActionCreator()())
+            }, (1000 / ticksPerSecond));
+
+            // Dispatch start timer
+            dispatch(makeStartTimerActionCreator()(timer));
+        }
+    }
+}
+
+/**
+ * Thunk action creator to stop a timer
+  * @return {function}           Return thunk action creator
+ */
+export const stopTimerActionCreator = () => {
+    return (dispatch, getState) => {
+
+        // Stop timer
+        const timer = getState().timer;
+        if (timer && timer.isRunning) {
+            clearInterval(timer.timer);
+        }
+
+        // Dispatch stop timer
+        dispatch(makeStopTimerActionCreator()());
     }
 }

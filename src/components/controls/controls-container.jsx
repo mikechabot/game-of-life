@@ -9,14 +9,15 @@ import {
 
 const mapStateToProps = (state) => {
     return {
+        timer: state.timer,
         controls: state.controls
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        startMutation() {
-            dispatch(startMutation());
+        startMutation(tickInterval) {
+            dispatch(startMutation(tickInterval));
         },
         stopMutation() {
             dispatch(stopMutation());

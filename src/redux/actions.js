@@ -1,22 +1,29 @@
 import {
     makeActionCreator,
-    toggleActionCreator
+    toggleActionCreator,
+    startTimerActionCreator,
+    stopTimerActionCreator
 } from './action-creators';
 
 export const SET_TICKS_PER_SECOND = 'SET_TICKS_PER_SECOND';
-export const START_MUTATION = 'START_MUTATION';
-export const STOP_MUTATION = 'STOP_MUTATION';
-export const NEXT_MUTATION = 'NEXT_MUTATION';
 export const CLEAR_GRID = 'CLEAR_GRID';
+export const START_TIMER = 'START_TIMER';
+export const STOP_TIMER = 'STOP_TIMER';
+export const TICK = 'TICK';
 
 export const setTicksPerSecond = makeActionCreator(SET_TICKS_PER_SECOND, 'value');
-export const startMutation = makeActionCreator(START_MUTATION);
-export const stopMutation = makeActionCreator(STOP_MUTATION);
-export const nextMutation = makeActionCreator(NEXT_MUTATION);
 
 export function clearGrid() {
     return toggleActionCreator(
         CLEAR_GRID,
         'value'
     );
+}
+
+export function startMutation(tickInterval) {
+    return startTimerActionCreator(tickInterval);
+}
+
+export function stopMutation() {
+    return stopTimerActionCreator()
 }

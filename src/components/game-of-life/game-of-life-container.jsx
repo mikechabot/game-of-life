@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 
 const mapStateToProps = (state) => {
     return {
-        controls: state.controls
+        controls: state.controls,
+        timer: state.timer
     }
 }
 
