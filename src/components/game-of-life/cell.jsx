@@ -14,20 +14,23 @@ class Cell extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.mutate) {
-            let living = _.filter(
-                            nextProps.neighbors,
-                            neighbor => neighbor && neighbor.alive
-                         ).length;
+
+        if (nextProps.mutate === true) {
+
+            // Get living count
+            const count = _.filter(
+                nextProps.neighbors,
+                neighbor => neighbor && neighbor.alive
+            ).length;
 
             if (this.state.alive) {
-                if (living <= 1 || living >= 4) {
+                if (count <= 1 || count >= 4) {
                     this.setState({
                         alive: false
                     })
                 }
             } else {
-                if (living === 3) {
+                if (count === 3) {
                     this.setState({
                         alive: true
                     })

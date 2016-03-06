@@ -23,14 +23,12 @@ export function makeActionCreator(type, ...keys) {
  * provided timeout value
  * @param  {string}     type
  * @param  {key}        key
- * @param  {number}     timeout
  * @param  {boolean}    invert
  * @return {function}
  */
 export const toggleActionCreator = (
     type,
     key,
-    timeout,
     invert
 ) => {
     return (dispatch, getState) => {
@@ -38,6 +36,6 @@ export const toggleActionCreator = (
         dispatch(makeActionCreator(type, key)(!invert));
         setTimeout(() => {
             dispatch(makeActionCreator(type, key)(!!invert));
-        }, timeout)
+        }, 50)
     }
 }

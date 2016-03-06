@@ -3,6 +3,7 @@ import CustomTheme from '../common/app-theme';
 import ThemeManager from 'material-ui/lib/styles/theme-manager';
 import ControlsContainer from './controls/controls-container';
 import GameOfLifeContainer from './game-of-life/game-of-life-container';
+import Scrollable from './common/scrollable';
 import _ from 'lodash';
 
 /**      Author: Mike Chabot
@@ -17,18 +18,24 @@ class Root extends React.Component {
     render() {
         return (
             <div style={style.container}>
+                <div style={style.title}>Game of Life</div>
                 <div>
-                    <h1>Game of Life</h1>
+                    <ControlsContainer />
                 </div>
-                <ControlsContainer />
-                <GameOfLifeContainer />
+                <Scrollable>
+                    <GameOfLifeContainer />
+                </Scrollable>
             </div>
 
         );
     }
 }
 
-const style ={
+const style = {
+    title: {
+        fontSize: '200%',
+        fontWeight: 400
+    },
     container: {
         display: 'flex',
         flexDirection: 'column',

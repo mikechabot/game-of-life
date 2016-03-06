@@ -1,8 +1,8 @@
 export const DEFAULT_STATE = {
     controls: {
-        numRows: 25,
-        numCols: 50,
+        numRows: 50,
+        numCols: 75,
         tps: 10,
-        mutation: false
+        mutate: false
     }
 }

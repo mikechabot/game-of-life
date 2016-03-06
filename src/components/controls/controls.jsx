@@ -14,39 +14,21 @@ import Slider from 'material-ui/lib/slider';
 class Controls extends React.Component {
     render() {
         return (
-            <Card style={style.container}>
-                <CardText>
-                    <TextField
-                        floatingLabelText="Rows"
-                        style={style.input}
-                        value={this.props.controls.numRows}
-                        errorText={this.props.controls.numRows > 300 ? 'Max rows: 300' : ''}
-                        onChange={(event) => this.props.setRows(event.target.value)}
+            <div style={style.container}>
+                <div style={style.slider}>
+                    <Slider
+                        style={{margin: 0}}
+                        ref={'tpsSlider'}
+                        min={1}
+                        max={20}
+                        value={this.props.controls.tps}
+                        description={`${this.props.controls.tps} ${this.props.controls.tps === 1 ? 'tick' : 'ticks'}/sec`}
+                        onChange={() => this.props.setTicksPerSecond(
+                            this.refs.tpsSlider.getValue()
+                        )}
                     />
-                    <TextField
-                        floatingLabelText="Columns"
-                        style={style.input}
-                        value={this.props.controls.numCols}
-                        errorText={this.props.controls.numCols > 300 ? 'Max columns: 300' : ''}
-                        onChange={(event) => this.props.setColumns(event.target.value)}
-                    />
-                </CardText>
-                <CardText>
-                    <div style={style.slider}>
-                        <Slider
-                            style={{margin: 0}}
-                            ref={'tpsSlider'}
-                            min={1}
-                            max={20}
-                            value={this.props.controls.tps}
-                            description={`${this.props.controls.tps} ${this.props.controls.tps === 1 ? 'tick' : 'ticks'}/sec`}
-                            onChange={() => this.props.setTicksPerSecond(
-                                this.refs.tpsSlider.getValue()
-                            )}
-                        />
-                    </div>
-                </CardText>
-                <CardActions>
+                </div>
+                <div style={style.buttons}>
                     <RaisedButton
                         style={style.button}
                         label={this.props.controls.mutate ? 'Stop' : 'Start'}
@@ -55,15 +37,26 @@ class Controls extends React.Component {
                         style={style.button}
                         label='Build Grid'
                         onClick={() => this.props.buildGrid()} />
-                </CardActions>
-            </Card>
+                </div>
+            </div>
         );
     }
 }
 
 const style = {
     container: {
-        display: 'flex'
+        border: '1px solid red',
+        width: 400,
+        display: 'flex',
+        flexDirection: 'column'
+    },
+    slider: {
+        fontSize: '90%',
+        fontWeight: 500
+    },
+    buttons: {
+        display: 'flex',
+        justifyContent: 'space-around'
     }
 }
 

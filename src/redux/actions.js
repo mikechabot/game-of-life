@@ -20,6 +20,7 @@ export const nextMutation = makeActionCreator(NEXT_MUTATION);
 
 export function buildGrid() {
     return toggleActionCreator(
-        BUILD_GRID, 'value', 500
+        BUILD_GRID,
+        'value'
     );
 }

@@ -6,6 +6,9 @@ import Cell from './cell';
  *  Default Element: See render()
  *            Props: See PropTypes
  */
+
+let timer;
+
 class GameOfLife extends React.Component {
 
     constructor(props) {
@@ -13,7 +16,9 @@ class GameOfLife extends React.Component {
         this.state = {
             grid: [],
             numRows: this.props.controls.numRows,
-            numCols: this.props.controls.numCols
+            numCols: this.props.controls.numCols,
+            tps: this.props.controls.tps,
+            ticks: 0
         }
     }
 
@@ -26,26 +31,31 @@ class GameOfLife extends React.Component {
         });
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        // Don't render if numRows or numCols changes
-        // Instead we'll render if we're issued a build action
-        if (nextProps.controls.numRows !== this.props.controls.numRows
-            || nextProps.controls.numCols !== this.props.controls.numCols) {
-            return false;
-        }
-        return true;
+    shouldComponentUpdate(nextProps) {
+        return !nextProps.controls.buildGrid;
     }
 
     componentWillReceiveProps(nextProps, nextState) {
+
+        // Rebuild the grid
         if (nextProps.controls.buildGrid === true) {
             this.setState({
                 numRows: nextProps.controls.numRows,
                 numCols: nextProps.controls.numCols,
+                tps: nextProps.controls.tps,
                 grid: this.buildGrid(
                     nextProps.controls.numRows,
                     nextProps.controls.numCols
                 )
             });
+        }
+
+        if (nextProps.controls.mutate) {
+            timer = setInterval(() => {
+                this.forceUpdate();
+            }, (1000 / this.state.tps))
+        } else {
+            clearInterval(timer);
         }
     }
 
@@ -63,8 +73,16 @@ class GameOfLife extends React.Component {
         return grid;
     }
 
-    getNeighbors(cell) {
+    getReconciledGrid() {
         const grid = this.state.grid;
+        _.forEach(this.refs, ref => {
+            let cell = ref.props.cell;
+            grid[cell.row][cell.col].alive = ref.state.alive
+        });
+        return grid;
+    }
+
+    getNeighbors(cell, grid) {
         return [
             grid[cell.row-1] && grid[cell.row-1][cell.col],     // North
             grid[cell.row-1] && grid[cell.row-1][cell.col+1],   // Northeast
@@ -78,26 +96,27 @@ class GameOfLife extends React.Component {
     }
 
     render() {
+        const grid = this.getReconciledGrid();
         return (
             <div style={style.container}>
                 <table className="table">
                     <tbody>
-                        {
-                            this.state.grid.map((rowColumns, index) => (
-                                <tr key={index}>
-                                    {
-                                        rowColumns.map((cell, index) => (
-                                            <Cell
-                                                ref={`${cell.row}-${cell.col}`}
-                                                mutate={this.props.controls.mutate}
-                                                neighbors={this.getNeighbors(cell)}
-                                                key={index}
-                                                cell={cell} />
-                                        ))
-                                    }
-                                </tr>
-                            ))
-                        }
+                    {
+                        this.state.grid.map((rowColumns, index) => (
+                            <tr key={index}>
+                                {
+                                    rowColumns.map((cell, index) => (
+                                        <Cell
+                                            ref={`${cell.row}-${cell.col}`}
+                                            mutate={this.props.controls.mutate}
+                                            neighbors={this.getNeighbors(cell, this.state.grid)}
+                                            key={index}
+                                            cell={cell} />
+                                    ))
+                                }
+                            </tr>
+                        ))
+                    }
                     </tbody>
                 </table>
             </div>
