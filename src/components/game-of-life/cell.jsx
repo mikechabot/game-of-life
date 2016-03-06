@@ -14,29 +14,35 @@ class Cell extends React.Component {
         }
     }
 
+    /**
+     * Mutate the cell one generation
+     * See rules (https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
+     * @param  {number} number of living neighbor cells
+     */
+    mutate(count) {
+        if (this.state.alive) {
+            if (count <= 1 || count >= 4) {
+                this.setState({
+                    alive: false
+                })
+            }
+        } else {
+            if (count === 3) {
+                this.setState({
+                    alive: true
+                })
+            }
+        }
+    }
+
     componentWillReceiveProps(nextProps) {
 
         if (nextProps.mutate) {
-
-            // Get living count
-            const count = _.filter(
-                nextProps.neighbors,
+            // Get living neighbor count
+            const count = _.filter(nextProps.neighbors,
                 neighbor => neighbor && neighbor.alive
             ).length;
-
-            if (this.state.alive) {
-                if (count <= 1 || count >= 4) {
-                    this.setState({
-                        alive: false
-                    })
-                }
-            } else {
-                if (count === 3) {
-                    this.setState({
-                        alive: true
-                    })
-                }
-            }
+            this.mutate(count);
         }
 
         if (nextProps.clear) {
@@ -44,7 +50,6 @@ class Cell extends React.Component {
                 alive: false
             });
         }
-
     }
 
     onClick() {
@@ -67,7 +72,8 @@ class Cell extends React.Component {
 }
 
 const baseStyle = {
-    backgroundColor: Colors.white
+    backgroundColor: Colors.white,
+    cursor: 'pointer'
 }
 
 const style = {
