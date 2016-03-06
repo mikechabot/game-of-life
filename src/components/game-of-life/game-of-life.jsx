@@ -50,10 +50,17 @@ class GameOfLife extends React.Component {
             });
         }
 
+        // Update ticks per second
         if (nextProps.controls.tps !== this.state.tps) {
             this.setState({tps: nextProps.controls.tps})
         }
 
+        // Clear the grid
+        if (nextProps.controls.clearGrid) {
+
+        }
+
+        // Update mutate flag
         if (nextProps.controls.mutate) {
             timer = setInterval(() => {
                 this.forceUpdate();
@@ -106,7 +113,7 @@ class GameOfLife extends React.Component {
                 <table className="table">
                     <tbody>
                     {
-                        this.state.grid.map((rowColumns, index) => (
+                        grid.map((rowColumns, index) => (
                             <tr key={index}>
                                 {
                                     rowColumns.map((cell, index) => (
@@ -115,6 +122,7 @@ class GameOfLife extends React.Component {
                                             mutate={this.props.controls.mutate}
                                             neighbors={this.getNeighbors(cell, this.state.grid)}
                                             key={index}
+                                            clear={this.props.controls.clearGrid}
                                             cell={cell} />
                                     ))
                                 }

@@ -16,7 +16,7 @@ class Cell extends React.Component {
 
     componentWillReceiveProps(nextProps) {
 
-        if (nextProps.mutate === true) {
+        if (nextProps.mutate) {
 
             // Get living count
             const count = _.filter(
@@ -38,6 +38,13 @@ class Cell extends React.Component {
                 }
             }
         }
+
+        if (nextProps.clear) {
+            this.setState({
+                alive: false
+            });
+        }
+
     }
 
     onClick() {
@@ -49,7 +56,11 @@ class Cell extends React.Component {
     render() {
         return (
             <td
-                style={this.state.alive ? style.alive : style.dead}
+                style={
+                    this.state.alive
+                        ? style.alive
+                        : style.dead
+                }
                 onClick={() => this.onClick()} />
         );
     }

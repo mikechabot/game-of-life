@@ -39,6 +39,7 @@ Root.childContextTypes = {
 
 const style = {
     title: {
+        marginTop: 10,
         color: Colors.grey700,
         fontSize: '200%',
         fontWeight: 400
