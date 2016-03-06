@@ -8,8 +8,8 @@ export default {
   zIndex: zIndex,
   fontFamily: 'Dosis, sans-serif',
   palette: {
-    primary1Color: Colors.cyan500,
-    primary2Color: Colors.cyan700,
+    primary1Color: Colors.green500,
+    primary2Color: Colors.green700,
     primary3Color: Colors.lightBlack,
     accent1Color: Colors.pinkA200,
     accent2Color: Colors.grey100,
@@ -19,6 +19,6 @@ export default {
     canvasColor: Colors.white,
     borderColor: Colors.grey300,
     disabledColor: ColorManipulator.fade(Colors.darkBlack, 0.3),
-    pickerHeaderColor: Colors.cyan500,
+    pickerHeaderColor: Colors.green500,
   }
 };

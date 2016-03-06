@@ -1,13 +1,10 @@
 import Controls from './controls';
 import { connect } from 'react-redux';
 import {
-    setRows,
-    setColumns,
-    setTicksPerSecond,
     startMutation,
     stopMutation,
-    nextMutation,
-    buildGrid
+    setTicksPerSecond,
+    clearGrid
 } from '../../redux/actions';
 
 const mapStateToProps = (state) => {
@@ -18,26 +15,17 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        setRows(numRows) {
-            dispatch(setRows(numRows))
-        },
-        setColumns(numColumns) {
-            dispatch(setColumns(numColumns))
-        },
-        setTicksPerSecond(tps) {
-            dispatch(setTicksPerSecond(tps));
-        },
         startMutation() {
             dispatch(startMutation());
         },
         stopMutation() {
             dispatch(stopMutation());
         },
-        nextMutation() {
-            dispatch(nextMutation());
+        setTicksPerSecond(tps) {
+            dispatch(setTicksPerSecond(tps));
         },
-        buildGrid() {
-            dispatch(buildGrid());
+        clearGrid() {
+            dispatch(clearGrid());
         }
     }
 }

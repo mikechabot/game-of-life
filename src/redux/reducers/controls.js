@@ -1,29 +1,15 @@
 import { DEFAULT_STATE } from '../../common/app-const';
 import {
-    SET_ROWS,
-    SET_COLUMNS,
     SET_TICKS_PER_SECOND,
     START_MUTATION,
     STOP_MUTATION,
-    BUILD_GRID
+    CLEAR_GRID
 } from '../actions';
 
 const defaultState = DEFAULT_STATE.controls;
 
 const Controls = (state = defaultState, action) => {
     switch (action.type) {
-        case SET_ROWS: {
-            return {
-                ...state,
-                numRows: action.value
-            }
-        }
-        case SET_COLUMNS: {
-            return {
-                ...state,
-                numCols: action.value
-            }
-        }
         case SET_TICKS_PER_SECOND: {
             return {
                 ...state,
@@ -42,10 +28,10 @@ const Controls = (state = defaultState, action) => {
                 mutate: false
             }
         }
-        case BUILD_GRID: {
+        case CLEAR_GRID: {
             return {
                 ...state,
-                buildGrid: action.value
+                clearGrid: action.value
             }
         }
         default: {

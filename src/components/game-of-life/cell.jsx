@@ -1,4 +1,5 @@
 import React from 'react';
+import Colors from 'material-ui/lib/styles/colors';
 import _ from 'lodash';
 
 /**      Author: Mike Chabot
@@ -55,12 +56,12 @@ class Cell extends React.Component {
 }
 
 const baseStyle = {
-    backgroundColor: '#FFFFFF'
+    backgroundColor: Colors.white
 }
 
 const style = {
     alive: {
-        backgroundColor: '#448AFF'
+        backgroundColor: Colors.green500
     },
     dead: {
         ...baseStyle

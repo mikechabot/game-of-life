@@ -50,6 +50,10 @@ class GameOfLife extends React.Component {
             });
         }
 
+        if (nextProps.controls.tps !== this.state.tps) {
+            this.setState({tps: nextProps.controls.tps})
+        }
+
         if (nextProps.controls.mutate) {
             timer = setInterval(() => {
                 this.forceUpdate();

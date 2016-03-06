@@ -1,13 +1,15 @@
 import React from 'react';
+import Colors from 'material-ui/lib/styles/colors';
 import CustomTheme from '../common/app-theme';
 import ThemeManager from 'material-ui/lib/styles/theme-manager';
 import ControlsContainer from './controls/controls-container';
 import GameOfLifeContainer from './game-of-life/game-of-life-container';
 import Scrollable from './common/scrollable';
+import { connect } from 'react-redux';
 import _ from 'lodash';
 
 /**      Author: Mike Chabot
- *  Description: GameOfLife application
+ *  Description: Root component
  */
 class Root extends React.Component {
     getChildContext() {
@@ -31,8 +33,13 @@ class Root extends React.Component {
     }
 }
 
+Root.childContextTypes = {
+    muiTheme: React.PropTypes.object
+}
+
 const style = {
     title: {
+        color: Colors.grey700,
         fontSize: '200%',
         fontWeight: 400
     },
@@ -44,10 +51,4 @@ const style = {
     }
 }
 
-Root.childContextTypes = {
-    muiTheme: React.PropTypes.object
-}
-
-Root.propTypes = {};
-
-export default Root;
+export default connect()(Root);
