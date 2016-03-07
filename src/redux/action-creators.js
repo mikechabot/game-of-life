@@ -5,7 +5,6 @@ import {
 } from './actions';
 
 
-
 /**
  * To reduce boilerplate code, we can utilize
  * this helper function that generates action
@@ -26,24 +25,24 @@ export function makeActionCreator(type, ...keys) {
 }
 
 /**
- * Thunk action creator that dispatches two events,
- * effectively toggling from true to false after a
- * provided timeout value
- * @param  {string}     type
- * @param  {key}        key
- * @param  {boolean}    invert
- * @return {function}
+ * Thunk action creator that toggles a boolean value
+ * with two action.
+ *
+ * @param  {string}     type    Redux action type
+ * @param  {boolean}    invert  If true, toggle from FALSE -> TRUE
+ * @param  {number}     delay   Delay the toggle by N milliseconds (Default: 50)
+ * @return {function}           Thunk action creator
  */
 export const toggleActionCreator = (
     type,
-    key,
-    invert
+    invert,
+    delay
 ) => {
     return (dispatch, getState) => {
-        dispatch(makeActionCreator(type, key)(!invert));
+        dispatch(makeActionCreator(type, 'value')(!invert));
         setTimeout(() => {
-            dispatch(makeActionCreator(type, key)(!!invert));
-        }, 50)
+            dispatch(makeActionCreator(type, 'value')(!!invert));
+        }, delay || 50)
     }
 }
 

@@ -14,10 +14,7 @@ export const TICK = 'TICK';
 export const setTicksPerSecond = makeActionCreator(SET_TICKS_PER_SECOND, 'value');
 
 export function clearGrid() {
-    return toggleActionCreator(
-        CLEAR_GRID,
-        'value'
-    );
+    return toggleActionCreator(CLEAR_GRID);
 }
 
 export function startMutation(tickInterval) {
