@@ -16,6 +16,7 @@ class ControlledSlider extends React.Component {
                     <div style={style.subtitle}>{this.props.subtitle}</div>
                 </div>
                 <Slider
+                    disabled={this.props.disabled}
                     style={style.slider}
                     ref="slider"
                     min={this.props.min}

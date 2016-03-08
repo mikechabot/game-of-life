@@ -1,10 +1,7 @@
 import React from 'react';
-import ReactDOM  from 'react-dom';
 
-/**          Author: Mike Chabot
- *      Description: Scrollable flex container
- *  Default Element: See render()
- *            Props: See PropTypes
+/**      Author: Mike Chabot
+ *	Description: Scrollable flex container
  */
 const Scrollable = ({
     children
@@ -20,12 +17,12 @@ const style = {
     container: {
         display: 'flex',
         flexDirection: 'column',
-        flexGrow: 2
+        width: '100%'
     },
     content: {
-        overflow: 'auto',
         display: 'flex',
-        flexGrow: 2
+        justifyContent: 'center',
+        overflow: 'auto'
     }
 }
 

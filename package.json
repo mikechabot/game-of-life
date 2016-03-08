@@ -3,14 +3,14 @@
   "version": "1.0.0",
   "description": "Conway's Game of Life",
   "scripts": {
-    "start": "npm run dev",
-    "dev": "echo 'launching dev environment' && npm run build && npm run start-dev-server",
-    "build": "echo 'building:' && webpack --progress --colors",
-    "watch": "echo 'watching:' && webpack --watch --progress --colors",
-    "test": "echo 'testing:' && mocha --compilers js:babel-core/register --recursive --colors",
-    "test:watch": "npm test -- --watch ",
-    "test:debug": "echo 'debugging tests:' && mocha --compilers js:babel-core/register --recursive --colors --debug-brk",
-    "start-dev-server": "echo 'starting dev server' && node server.js"
+      "start": "npm run prod",
+      "dev": "echo 'Launching Dev Environment' && npm run build && npm run start-dev-server",
+      "build": "echo 'Building:' && webpack --config webpack.config.dev.js --progress --colors",
+      "prod": "echo 'Launching Prod Environment' && npm run package && npm run start-server",
+      "package": "echo 'Packaging:' && webpack --progress --colors -p --config webpack.config.prod.js",
+      "watch": "echo 'Watching:' && webpack --config webpack.config.dev.js --watch --progress --colors",
+      "start-dev-server": "echo 'Staring Dev Server' && node server.js",
+      "start-server": "echo 'Starting Prod Server' && http-server -o -p 9091 dist"
   },
   "repository": {
     "type": "git",

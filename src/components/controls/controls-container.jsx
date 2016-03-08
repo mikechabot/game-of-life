@@ -9,8 +9,8 @@ import {
 
 const mapStateToProps = (state) => {
     return {
-        timer: state.timer,
-        controls: state.controls
+        isRunning: state.timer.isRunning,
+        tps: state.controls.tps
     }
 }
 

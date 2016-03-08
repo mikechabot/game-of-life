@@ -16,6 +16,8 @@ injectTapEventPlugin();
 const store = configureStore(DEFAULT_STATE);
 
 ReactDOM.render(
-    <Provider store={store}><Root /></Provider>,
+    <Provider store={store}>
+        <Root />
+    </Provider>,
     document.getElementById('game-of-life')
 );

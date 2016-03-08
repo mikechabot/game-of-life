@@ -4,15 +4,24 @@ import {
     TICK
 } from './actions';
 
-
 /**
- * To reduce boilerplate code, we can utilize
- * this helper function that generates action
- * creators based on input arguments
+ * Action creator generator that accepts a 'type' and a spread of keys.
+ * Returns a function that can be used to generate action creators of
+ * a given shape.
  *
- *   Example: const DO_STUFF = 'DO_STUFF';
- *            const myAction = makeActionCreator(DO_STUFF, 'data');
- *            myAction(123); --> { type: "DO_STUFF", data: 123 }
+ * Example usage:
+ *
+ * 		const actionType = 'UPDATE_FOO';
+ * 		const updateFooAction = makeActionCreator(actionType, 'payload');
+ *   	const updateFooBar = updateFooAction('bar');
+ *   	const updateFooBaz = updateFooAction('baz');
+ *
+ * 		console.log(updateFooBar); --> { type: 'UPDATE_FOO', payload: 'bar' }
+ *		console.log(updateFooBar); --> { type: 'UPDATE_FOO', payload: 'baz' }
+ *
+ * @param  {string} type        Redux action type
+ * @param  {string} ...keys     Redux action property keys
+ * @return {function}
  */
 export function makeActionCreator(type, ...keys) {
     return function(...args) {
@@ -67,7 +76,7 @@ const shouldStartTimer = (state) => {
  * Thunk action creator to start a timer and schedule
  * a tick every N milliseconds
  *
- * @return {function}                   Return thunk action creator
+ * @return {function}   Thunk action creator
  */
 export const startTimerActionCreator = (
     ticksPerSecond
@@ -88,7 +97,7 @@ export const startTimerActionCreator = (
 
 /**
  * Thunk action creator to stop a timer
-  * @return {function}           Return thunk action creator
+  * @return {function}  Thunk action creator
  */
 export const stopTimerActionCreator = () => {
     return (dispatch, getState) => {

@@ -10,12 +10,12 @@ class Cell extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            alive: this.props.cell.alive
+            alive: false
         }
     }
 
     /**
-     * Mutate the cell one generation
+     * Mutate the cell by one generation
      * See rules (https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
      * @param  {number} number of living neighbor cells
      */
@@ -36,15 +36,11 @@ class Cell extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-
         if (nextProps.mutate) {
-            // Get living neighbor count
-            const count = _.filter(nextProps.neighbors,
-                neighbor => neighbor && neighbor.alive
-            ).length;
-            this.mutate(count);
+            this.mutate(
+                nextProps.livingNeighborCount
+            );
         }
-
         if (nextProps.clear) {
             this.setState({
                 alive: false
@@ -60,20 +56,19 @@ class Cell extends React.Component {
 
     render() {
         return (
-            <td
-                style={
-                    this.state.alive
-                        ? style.alive
-                        : style.dead
-                }
-                onClick={() => this.onClick()} />
+            <td onClick={() => this.onClick()}
+                style={this.state.alive ? style.alive : style.dead}
+            />
         );
     }
 }
 
 const baseStyle = {
     backgroundColor: Colors.white,
-    cursor: 'pointer'
+    border: `1px solid ${Colors.grey400}`,
+    cursor: 'pointer',
+    width: 10,
+    height: 10
 }
 
 const style = {
@@ -84,9 +79,5 @@ const style = {
         ...baseStyle
     }
 }
-
-Cell.propTypes = {
-    cell: React.PropTypes.object.isRequired
-};
 
 export default Cell;

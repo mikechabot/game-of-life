@@ -10,12 +10,3 @@ body, html {
     @include flex;
     @include full-height;
 }
-
-.table {
-    border-collapse: collapse;
-    tbody td {
-        border: 1px solid $grey400;
-        width: 10px;
-        height: 10px;
-    }
-}

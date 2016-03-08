@@ -3,7 +3,7 @@ import Colors from 'material-ui/lib/styles/colors';
 import CustomTheme from '../common/app-theme';
 import ThemeManager from 'material-ui/lib/styles/theme-manager';
 import ControlsContainer from './controls/controls-container';
-import GameOfLifeContainer from './game-of-life/game-of-life-container';
+import GameOfLife from './game-of-life/game-of-life';
 import Scrollable from './common/scrollable';
 import { connect } from 'react-redux';
 import _ from 'lodash';
@@ -11,12 +11,18 @@ import _ from 'lodash';
 /**      Author: Mike Chabot
  *  Description: Root component
  */
-class Root extends React.Component {
+ class Root extends React.Component {
+
+    /**
+     * Apply a custom theme to material-ui
+     * @return {object}
+     */
     getChildContext() {
         return {
             muiTheme: ThemeManager.getMuiTheme(CustomTheme),
         };
     }
+
     render() {
         return (
             <div style={style.container}>
@@ -25,10 +31,9 @@ class Root extends React.Component {
                 </span>
                 <ControlsContainer />
                 <Scrollable>
-                    <GameOfLifeContainer />
+                  <GameOfLife />
                 </Scrollable>
             </div>
-
         );
     }
 }
@@ -39,7 +44,7 @@ Root.childContextTypes = {
 
 const style = {
     title: {
-        display: 'inline-block',
+        display: 'block',
         marginTop: 10,
         color: Colors.grey700,
         fontSize: '200%',

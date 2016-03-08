@@ -24,7 +24,7 @@ module.exports = {
         inject: 'body'
     }),
     new webpack.DefinePlugin({
-        'process.env.NODE_ENV': '"development"'
+        'process.env.NODE_ENV': '"dev"'
     })
   ],
   sassResources: './src/scss/style.scss',
@@ -40,7 +40,9 @@ module.exports = {
       { test: /\.scss$/, loader: 'style!css!sass!sass-resources!postcss-loader' },
       { test: /\.(woff|woff2)$/, loader: "url-loader?limit=10000&mimetype=application/font-woff" },
       { test: /\.ttf$/, loader: "file-loader" },
+      { test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192' },
       { test: /\.eot$/, loader: "file-loader" },
+      { test: /\.svg$/, loader: "file-loader" }
     ]
   }
 };

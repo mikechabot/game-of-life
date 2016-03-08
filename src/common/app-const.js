@@ -5,9 +5,12 @@ export const DEFAULT_STATE = {
         ticks: 0
     },
     controls: {
-        numRows: 50,
-        numCols: 75,
         tps: 10,
-        mutate: false
+        clearGrid: false
     }
-}
+};
+
+export const GRID_DATA = {
+    numRows: 50,
+    numCols: 75,
+};
